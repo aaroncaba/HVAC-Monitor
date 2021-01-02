@@ -4,7 +4,7 @@
 
   <p>Select signal to change state.</p>
 
-  <form action="addReading.php" method="POST">
+  <form action="addReading.php" method="GET">
 
       Signal: 
 		<select name="signal_id">
@@ -22,8 +22,8 @@
 
       State: 
 		<select name="state">
-			<option value="0">Off</option>
-			<option value="1">On</option>
+			<option value="ON">On</option>
+			<option value="OFF">Off</option>
 		</select><br><br>
 
       <input type="submit" value="Submit" name="submit">
