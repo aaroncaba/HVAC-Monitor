@@ -171,7 +171,8 @@ void setup()
 void loop()
 {
   delay(2000); //DEBOUNCE
-      //read all pin status
+
+  //read all pin status
   water_heater_state = digitalRead(water_heater_pin);
   low_heat_state = digitalRead(low_heat_pin);
   high_heat_state = digitalRead(high_heat_pin);
@@ -324,50 +325,16 @@ void loop()
   //END process the water heater data
   //****************************************************************************
 
-  //****************************************************************************
-  //Start LOW HEAT data
-  //****************************************************************************
   HVAC_process(low_heat_state, low_heat_pin_active_level, "Low Heat", low_heat_sent_flag, low_heat_timer, "low_heat", "low_heat_log.php");
-
-  //****************************************************************************
-  //Start HIGH HEAT data
-  //****************************************************************************
   HVAC_process(high_heat_state, high_heat_pin_active_level, "High Heat", high_heat_sent_flag, high_heat_timer, "high_heat", "high_heat_log.php");
-
-  //****************************************************************************
-  //Start LOW COOL data
-  //****************************************************************************
   HVAC_process(low_cool_state, low_cool_pin_active_level, "Low Cool", low_cool_sent_flag, low_cool_timer, "low_cool", "low_cool_log.php");
-
-  //****************************************************************************
-  //Start HIGH COOL data
-  //****************************************************************************
   HVAC_process(high_cool_state, high_cool_pin_active_level, "High Cool", high_cool_sent_flag, high_cool_timer, "high_cool", "high_cool_log.php");
-
-  //****************************************************************************
-  //Start fan data
-  //****************************************************************************
   HVAC_process(fan_state, fan_pin_active_level, "HVAC Fan", fan_sent_flag, fan_timer, "fan", "fan_log.php");
-
-  //****************************************************************************
-  //Start humidifier data
-  //****************************************************************************
   HVAC_process(humidifier_state, humidifier_pin_active_level, "Humidifier", humidifier_sent_flag, humidifier_timer, "humidifier", "humidifier_log.php");
-
-  //****************************************************************************
-  //Start dehumidifier data
-  //****************************************************************************
   HVAC_process(dehumidifier_state, dehumidifier_pin_active_level, "De-humidifier", dehumidifier_sent_flag, dehumidifier_timer, "dehumidifier", "dehumidifier_log.php");
-
-  //****************************************************************************
-  //Start filter data
-  //****************************************************************************
   HVAC_process(filter_state, filter_pin_active_level, "HVAC Filter", filter_sent_flag, filter_timer, "filter", "filter_log.php");
-
-  //****************************************************************************
-  //Start ESTOP data
-  //****************************************************************************
   HVAC_process(estop_state, estop_pin_active_level, "E-Stop", estop_sent_flag, estop_timer, "estop", "estop_log.php");
+
   Serial.println();
   Serial.println(F("__________________________________________"));
   Serial.println();
