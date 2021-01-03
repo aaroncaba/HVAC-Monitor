@@ -1,0 +1,15 @@
+I have tested by circuit attached in the first post and no issues were found. i have written all of my arduino code, and the server backend code to log everything into the SQL data base. i will post the code likely tonight.
+
+i have designed a small PCB to allow me to build 9x copies of the circuit to monitor 9x inputs from my HVAC system. attached is a layout and how everything interfaces with my HVAC equipment. the circuit is configured to trigger the IC chip output around 15 VAC. that is controlled by the resistor in series with pin 1 (AC in)
+
+the custom PCB should be here in around a week or so. i have the arduino hardware and an enclosure so i will at least begin construction of my monitor.
+
+
+the enclosure i am using is from mouser: 616-63274-510-039
+the 47 uF caps between +DC and -DC pins on the IC chip is from mouser: 80-ESK476M050AE3AA
+the 3700 IC chip is from digikey: HCPL3700-ND
+i am using DIP sockets for the chips from digikey: AE9986-ND
+the 0.1uF caps between VCC and GND for each IC chip is from digikey: 399-5453-1-ND
+the LEDs have integrated 5V current limit resistors, they are from digikey: 754-1724-ND
+
+the power supply i am using for the monitor is the same power supply i have been using 24x7x365 for 7 years with zero issues is from amazon: B000Z31G3M
