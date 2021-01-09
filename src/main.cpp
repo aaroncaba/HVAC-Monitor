@@ -1,18 +1,15 @@
 #include <WiFiNINA.h>
-#include <SPI.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 
+#include "ssd1306Display.h"
 #include "wifiConnect.h"
 
-#define SCREEN_WIDTH 128  // OLED display width, in pixels
-#define SCREEN_HEIGHT 64  // OLED display height, in pixels
-#define SSD1306_ADDR 0x3C // SSD1306 display I2C address
+// #define SCREEN_WIDTH 128  // OLED display width, in pixels
+// #define SCREEN_HEIGHT 64  // OLED display height, in pixels
+// #define SSD1306_ADDR 0x3C // SSD1306 display I2C address
 
-// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
-#define OLED_RESET 4 // Reset pin # (or -1 if sharing Arduino reset pin)
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+// // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+// #define OLED_RESET 4 // Reset pin # (or -1 if sharing Arduino reset pin)
+// Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // if you don't want to use DNS (and reduce your sketch size)
 // use the numeric IP instead of the name for the server:
@@ -20,6 +17,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 char server[] = "ToshibaLaptop"; // name address for Google (using DNS)
 
 WiFiClient client;
+SsdDisplay display;
 
 void setup()
 {
@@ -32,18 +30,14 @@ void setup()
 
   Serial.println("Starting up...");
 
-  // Initialize the display
-  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
-  if (!display.begin(SSD1306_SWITCHCAPVCC, SSD1306_ADDR))
-  { 
-    Serial.println(F("SSD1306 allocation failed"));
-    for (;;)
-      ; // Don't proceed, loop forever
+  if (display.init() != 0)
+  {
+    Serial.println(F("Initializing display failed"));
+    while (true)
+      ;
   }
-  display.display();
-  display.clearDisplay();
-  display.drawPixel(10,10, SSD1306_WHITE);
-  display.display();
+
+  display.draw_text(0, 0, "Connecting to WiFi", 1);
 
   if (connectToWifi() != 0)
   {
@@ -51,9 +45,10 @@ void setup()
     while (true) // Pause forever
       ;
   };
+  display.draw_text(0, 0, "WiFi connected", 1);
   Serial.println("WiFi Connected");
 
-  Wire.begin();
+  // Wire.begin();
 
   Serial.println("\nStarting connection to server...");
   // if you get a connection, report back via serial:
