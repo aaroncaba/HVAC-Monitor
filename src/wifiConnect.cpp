@@ -1,8 +1,10 @@
 #include "wifiConnect.h"
 
+#include <Arduino.h>
+
 #include "arduino_secrets.h"
 
-void printWifiStatus()
+void MyWiFi::printWifiStatus()
 {
     // print the SSID of the network you're attached to:
     Serial.print("SSID: ");
@@ -20,7 +22,7 @@ void printWifiStatus()
     Serial.println(" dBm");
 }
 
-int connectToWifi()
+int MyWiFi::connectToWifi()
 {
     ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
     char ssid[] = SECRET_SSID; // your network SSID (name)
@@ -54,4 +56,24 @@ int connectToWifi()
     Serial.println("Connected to wifi");
     printWifiStatus();
     return 0;
+}
+
+void MyWiFi::sendMessage(String msg)
+{
+
+    if (client.connect(serverName, 80))
+    {
+        Serial.println("connected to server");
+
+        // Make a HTTP request:
+        client.println(msg + " HTTP/1.1");
+        client.println("Host: " + strServerName);
+        client.println("Connection: close");
+        client.println();
+    }
+
+    else
+    {
+        Serial.println(F("could not connect to server"));
+    }
 }

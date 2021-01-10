@@ -12,16 +12,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-// #include <avr32/io.h>
-// #include <avr/pgmspace.h>
-// #include <Ethernet2.h>
-//#include <Ethernet.h>
-//#include <EEPROM.h>
-// const char *ip_to_str(const uint8_t *);
-// byte mac[] = {0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x03}; //MAC address of the local system
-// byte serverip[] = {192, 168, 1, 48};
-// EthernetClient client;
-
 // Setup SSD1306 screen
 #define SCREEN_WIDTH 128    // OLED display width, in pixels
 #define SCREEN_HEIGHT 64    // OLED display height, in pixels
@@ -37,128 +27,22 @@ enum ThermostatNames
   UPSTAIRS
 };
 
-class Signal
-{
-public:
-  // ON or OFF
-  PinStatus state;
 
-  //if the pin changes state, send a message to the server once and set the flag to prevent message from sending again
-  bool sent_flag = false;
-
-  unsigned pin = 0;
-  PinStatus active_level;
-
-  void readPin()
-  {
-    PinStatus currentState = digitalRead(pin);
-    if (currentState != state)
-    {
-      state = currentState;
-      sent_flag = false;
-    }
-  }
-
-  void init(const int &pin, const PinStatus &active_level)
-  {
-    this->pin = pin;
-    pinMode(pin, INPUT);
-    this->active_level = active_level;
-  }
-};
-
-struct Thermostat
-{
-  Signal cool;
-  Signal heat;
-  Signal fan;
-};
-
-void initThermostat(Thermostat *thermostat, const int &cool_pin, const int &heat_pin, const int &fan_pin)
-{
-  thermostat->cool.init(cool_pin, HIGH);
-  thermostat->heat.init(heat_pin, HIGH);
-  thermostat->fan.init(fan_pin, HIGH);
-}
-
-struct Controller
-{
-  Signal cool1;
-  Signal heat1;
-  Signal heat2;
-  Signal fan;
-};
-
-Thermostat thermostats[3];
-const byte thermostatCount = sizeof(thermostats) / sizeof(*thermostats);
-
-Controller controller;
-
-// byte localip[4]; //the local system IP, either local or DHCP generated depending on user preference
-// byte subnetmask[4];
-// byte gateway[4];
-// byte dnsServerIp[4]; //system variable for the DNS server to use to resolve the NTP server URL.
-// #define LOCALIPADDREEPROMADDRPART1 30
-// #define LOCALIPADDREEPROMADDRPART2 31
-// #define LOCALIPADDREEPROMADDRPART3 32
-// #define LOCALIPADDREEPROMADDRPART4 33
-// #define SUBNETMASKEEPROMADDRPART1 34
-// #define SUBNETMASKEEPROMADDRPART2 35
-// #define SUBNETMASKEEPROMADDRPART3 36
-// #define SUBNETMASKEEPROMADDRPART4 37
-// #define GATEWAYEEPROMADDRPART1 38
-// #define GATEWAYEEPROMADDRPART2 39
-// #define GATEWAYEEPROMADDRPART3 40
-// #define GATEWAYEEPROMADDRPART4 41
-// #define DNSSERVEREEPROMADDRPART1 42
-// #define DNSSERVEREEPROMADDRPART2 43
-// #define DNSSERVEREEPROMADDRPART3 44
-// #define DNSSERVEREEPROMADDRPART4 45
 
 void setup()
 {
   Serial.begin(115200);
 
-  initThermostat(thermostat[BASEMENT], 8, 9, 10);
-  initThermostat(thermostat[MAIN_FLOOR], 11, 12, 13);
-  initThermostat(thermostat[UPSTAIRS], 14, 15, 16);
+  initThermostat(thermostats[BASEMENT], 8, 9, 10);
+  initThermostat(thermostats[MAIN_FLOOR], 11, 12, 13);
+  initThermostat(thermostats[UPSTAIRS], 14, 15, 16);
 
   controller.cool1.init(17, HIGH);
   controller.fan.init(18, HIGH);
   controller.heat1.init(19, HIGH);
   controller.heat2.init(20, HIGH);
 
-  // localip[0] = EEPROM.read(LOCALIPADDREEPROMADDRPART1);
-  // localip[1] = EEPROM.read(LOCALIPADDREEPROMADDRPART2);
-  // localip[2] = EEPROM.read(LOCALIPADDREEPROMADDRPART3);
-  // localip[3] = EEPROM.read(LOCALIPADDREEPROMADDRPART4);
-  // subnetmask[0] = EEPROM.read(SUBNETMASKEEPROMADDRPART1);
-  // subnetmask[1] = EEPROM.read(SUBNETMASKEEPROMADDRPART2);
-  // subnetmask[2] = EEPROM.read(SUBNETMASKEEPROMADDRPART3);
-  // subnetmask[3] = EEPROM.read(SUBNETMASKEEPROMADDRPART4);
-  // gateway[0] = EEPROM.read(GATEWAYEEPROMADDRPART1);
-  // gateway[1] = EEPROM.read(GATEWAYEEPROMADDRPART2);
-  // gateway[2] = EEPROM.read(GATEWAYEEPROMADDRPART3);
-  // gateway[3] = EEPROM.read(GATEWAYEEPROMADDRPART4);
-  // dnsServerIp[0] = EEPROM.read(DNSSERVEREEPROMADDRPART1);
-  // dnsServerIp[1] = EEPROM.read(DNSSERVEREEPROMADDRPART2);
-  // dnsServerIp[2] = EEPROM.read(DNSSERVEREEPROMADDRPART3);
-  // dnsServerIp[3] = EEPROM.read(DNSSERVEREEPROMADDRPART4);
 
-  // Ethernet.begin(mac, localip, dnsServerIp, gateway, subnetmask);
-  // Serial.println(F("System is using Static Ethernet Settings."));
-
-  // Serial.print(F("System IP address is "));
-  // Serial.println(ip_to_str(localip));
-
-  // Serial.print(F("Gateway address is "));
-  // Serial.println(ip_to_str(gateway));
-
-  // Serial.print(F("DNS IP address is "));
-  // Serial.println(ip_to_str(dnsServerIp));
-
-  // Serial.print(F("Subnet Mask is "));
-  // Serial.println(ip_to_str(subnetmask));
 }
 
 void loop()
