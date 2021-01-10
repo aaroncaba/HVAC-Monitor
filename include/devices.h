@@ -41,11 +41,11 @@ public:
     this->active_level = active_level_in;
     if (this->active_level == HIGH)
     {
-      this->state == LOW;
+      this->state = LOW;
     }
     else
     {
-      this->state == HIGH;
+      this->state = HIGH;
     }
     this->name = name_in;
   }
@@ -55,13 +55,14 @@ class Thermostat
 {
 public:
   Thermostat(){};
-  void init(const int &cool_pin, const int &heat_pin, const int &fan_pin)
+  Thermostat(const String &name, const int &cool_pin, const int &heat_pin, const int &fan_pin)
   {
-    this->cool.init("Cool", cool_pin, HIGH);
-    this->heat.init("Heat", heat_pin, HIGH);
+    this->name = name;
+    this->cool.init("Cool1", cool_pin, HIGH);
+    this->heat.init("Heat1", heat_pin, HIGH);
     this->fan.init("Fan", fan_pin, HIGH);
   }
-  //Signal signals[3];
+  String name;
   Signal cool;
   Signal heat;
   Signal fan;
@@ -71,17 +72,19 @@ class Controller
 {
 public:
   Controller(){};
+  Controller(const String &name, const int &cool_pin, const int &heat1_pin, const int &heat2_pin, const int &fan_pin)
+  {
+    this->name = name;
+    this->cool1.init("Cool1", cool_pin, HIGH);
+    this->heat1.init("Heat1", heat1_pin, HIGH);
+    this->heat2.init("Heat2", heat2_pin, HIGH);
+    this->fan.init("Fan", fan_pin, HIGH);
+  };
+  String name;
   Signal cool1;
   Signal heat1;
   Signal heat2;
   Signal fan;
-  void init(const int &cool_pin, const int &heat1_pin, const int &heat2_pin, const int &fan_pin)
-  {
-    this->cool1.init("Cool1", cool_pin, HIGH);
-    this->fan.init("Fan", fan_pin, HIGH);
-    this->heat1.init("Heat1", heat1_pin, HIGH);
-    this->heat2.init("Heat2", heat2_pin, HIGH);
-  };
 };
 
 #endif

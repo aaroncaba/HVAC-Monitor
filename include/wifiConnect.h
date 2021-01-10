@@ -19,16 +19,9 @@ public:
     }
     void printWifiStatus();
     int connectToWifi();
-    void sendMessage(String msg);
+    int sendMessage(String msg);
     bool connected() { return client.connected(); }
-    void read()
-    {
-        while (client.available())
-        {
-            char c = client.read();
-            Serial.write(c);
-        }
-    }
+    void read();
 };
 
 #endif // WIFICONNECT_H_

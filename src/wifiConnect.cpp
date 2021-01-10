@@ -58,22 +58,29 @@ int MyWiFi::connectToWifi()
     return 0;
 }
 
-void MyWiFi::sendMessage(String msg)
+int MyWiFi::sendMessage(String msg)
 {
-
     if (client.connect(serverName, 80))
     {
-        Serial.println("connected to server");
-
         // Make a HTTP request:
         client.println(msg + " HTTP/1.1");
         client.println("Host: " + strServerName);
         client.println("Connection: close");
         client.println();
+        return 0;
     }
-
     else
     {
         Serial.println(F("could not connect to server"));
+        return 1;
+    }
+}
+
+void MyWiFi::read()
+{
+    while (client.available())
+    {
+        char c = client.read();
+        Serial.write(c);
     }
 }
