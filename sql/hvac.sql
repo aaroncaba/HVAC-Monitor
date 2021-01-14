@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 03, 2021 at 01:59 AM
+-- Generation Time: Jan 14, 2021 at 02:55 AM
 -- Server version: 10.5.8-MariaDB
 -- PHP Version: 7.4.13
 
@@ -39,10 +39,10 @@ CREATE TABLE IF NOT EXISTS `devices` (
 --
 
 INSERT INTO `devices` (`id`, `name`) VALUES
-(1, 'Main Floor'),
+(1, 'Main_Floor'),
 (2, 'Basement'),
 (3, 'Upstairs'),
-(4, 'HVAC Controller');
+(4, 'HVAC_Controller');
 
 -- --------------------------------------------------------
 
@@ -62,13 +62,13 @@ CREATE TABLE IF NOT EXISTS `device_commands` (
 --
 
 INSERT INTO `device_commands` (`id`, `command`) VALUES
-(1, 'Heat 1'),
-(2, 'Heat 2'),
+(1, 'Heat1'),
+(2, 'Heat2'),
 (3, 'Fan'),
 (4, 'Setpoint'),
-(5, 'Cool 1'),
-(6, 'Cool 2'),
-(7, 'Emergency Heat');
+(5, 'Cool1'),
+(6, 'Cool2'),
+(7, 'EmergencyHeat');
 
 -- --------------------------------------------------------
 
@@ -120,24 +120,7 @@ CREATE TABLE IF NOT EXISTS `states` (
   `time` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `signal_id_index` (`signal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `states`
---
-
-INSERT INTO `states` (`id`, `signal_id`, `state`, `time`) VALUES
-(1, 6, 'ON', '2021-01-02 00:45:01'),
-(2, 1, 'ON', '2021-01-02 00:45:18'),
-(3, 1, 'OFF', '2021-01-02 00:45:26'),
-(4, 9, 'ON', '2021-01-02 00:47:44'),
-(5, 9, 'OFF', '2021-01-02 00:47:49'),
-(6, 1, 'ON', '2021-01-02 21:01:31'),
-(7, 2, 'ON', '2021-01-02 21:01:46'),
-(8, 3, 'ON', '2021-01-02 21:01:52'),
-(9, 4, 'OFF', '2021-01-03 01:23:47'),
-(10, 4, 'ON', '2021-01-03 01:23:52'),
-(11, 4, 'OFF', '2021-01-03 01:23:56');
+) ENGINE=InnoDB AUTO_INCREMENT=507 DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables

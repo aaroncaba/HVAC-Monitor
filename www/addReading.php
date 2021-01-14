@@ -4,7 +4,7 @@
 
 $hostname = "hvac-monitor";
 $username = "arduino";
-$password = "nml0vOeQW3WmzxqY";
+$password = "J0AHRltw5MR5ebuz";
 $db = "hvac";
 
 $dbconnect = mysqli_connect($hostname, $username, $password, $db);
@@ -41,7 +41,7 @@ echo $query;
 echo "\n";
 
 if (!mysqli_query($dbconnect, $query)) {
-	die('An error occurred when submitting your review.');
+	echo("<p>Error description: " . mysqli_error($dbconnect));
 } else {
 	echo "Thanks for your review.";
 }

@@ -75,27 +75,29 @@ void loop()
   delay(1000); //DEBOUNCE
 
   Serial.println("Reading Pins");
-  for (int i = 0; i < thermostatCount; i++)
+  // for (int i = 0; i < thermostatCount; i++)
+  for (int i = 0; i < 1; i++)
   {
     thermostats[i].cool.readPin();
-    thermostats[i].heat.readPin();
-    thermostats[i].fan.readPin();
+    // thermostats[i].heat.readPin();
+    // thermostats[i].fan.readPin();
   }
-  controller.cool1.readPin();
-  controller.fan.readPin();
-  controller.heat1.readPin();
-  controller.heat2.readPin();
+  // controller.cool1.readPin();
+  // controller.fan.readPin();
+  // controller.heat1.readPin();
+  // controller.heat2.readPin();
 
-  for (int i = 0; i < thermostatCount; i++)
+  // for (int i = 0; i < thermostatCount; i++)
+  for (int i = 0; i < 1; i++)
   {
     HVAC_process(thermostats[i].name, thermostats[i].cool);
-    HVAC_process(thermostats[i].name, thermostats[i].heat);
-    HVAC_process(thermostats[i].name, thermostats[i].fan);
+    // HVAC_process(thermostats[i].name, thermostats[i].heat);
+    // HVAC_process(thermostats[i].name, thermostats[i].fan);
   }
-    HVAC_process(controller.name, controller.heat1);
-    HVAC_process(controller.name, controller.heat2);
-    HVAC_process(controller.name, controller.cool1);
-    HVAC_process(controller.name, controller.fan);
+  // HVAC_process(controller.name, controller.heat1);
+  // HVAC_process(controller.name, controller.heat2);
+  // HVAC_process(controller.name, controller.cool1);
+  // HVAC_process(controller.name, controller.fan);
 
   if (thermostats[0].cool.state == thermostats[0].cool.active_level)
   {
