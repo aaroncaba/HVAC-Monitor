@@ -7,18 +7,18 @@
 
 	<form action="addReading.php" method="GET">
 
+		Device:
+		<select name="device">
+			<option value="Upstairs">Upstairs</option>
+			<option value="Basement">Basement</option>
+			<option value="Main_Floor">Main Floor</option>
+		</select><br><br>
 		Signal:
-		<select name="signal_id">
-			<option value="1">T1 Heat</option>
-			<option value="2">T1 Cool</option>
-			<option value="3">T1 Fan</option>
-			<option value="4">T2 Heat</option>
-			<option value="5">T2 Cool</option>
-			<option value="6">T2 Fan</option>
-			<option value="7">T3 Heat</option>
-			<option value="8">T3 Cool</option>
-			<option value="9">T3 Fan</option>
-			<option value="10">Heat 2</option>
+		<select name="command">
+			<option value="Cool1">Cool1</option>
+			<option value="Heat1">Heat1</option>
+			<option value="Heat2">Heat2</option>
+			<option value="Fan">Fan</option>
 		</select><br><br>
 
 		State:

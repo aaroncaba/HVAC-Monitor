@@ -13,10 +13,32 @@ if ($dbconnect->connect_error) {
 	die("Database connection failed: " . $dbconnect->connect_error);
 }
 
-$signal_id = $_GET['signal_id'];
+$device = $_GET['device'];
+$command = $_GET['command'];
 $state = $_GET['state'];
 
-$query = "INSERT INTO states (signal_id, state) VALUES ('$signal_id', '$state')";
+// $query = "INSERT INTO states (signal_id, state) VALUES ('$signal_id', '$state')";
+
+$query = "
+INSERT INTO `states`(`signal_id`, `state`)
+VALUES(
+    (
+    SELECT
+        s.`id`
+    FROM
+        `signals` s
+    INNER JOIN `devices` d INNER JOIN `device_commands` dc ON
+        (
+            s.`device_id` = d.`id` AND s.`command_id` = dc.`id`
+        )
+    WHERE
+        d.`name` = '$device' AND dc.`command` = '$command'
+	),
+	'$state'
+);";
+
+echo $query;
+echo "\n";
 
 if (!mysqli_query($dbconnect, $query)) {
 	die('An error occurred when submitting your review.');
